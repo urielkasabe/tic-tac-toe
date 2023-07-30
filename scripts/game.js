@@ -1,8 +1,31 @@
+function resetGame() {
+  activePlayer = 0;
+  curruntRound = 1;
+  gameIsOver = false;
+
+  gameOverEl.firstElementChild.innerHTML =
+    'You won, <span id="winner-name"></span>!';
+
+  gameOverEl.style.display = "none";
+
+  let gameBoardIdx = 0;
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      gameData[i][j] = 0;
+      const gameBoardItemEl = gameFieldElements[gameBoardIdx];
+      gameBoardItemEl.textContent = "";
+      gameBoardItemEl.classList.remove("disable");
+      gameBoardIdx++;
+    }
+  }
+}
+
 function startNewGame() {
   if (players[0].name === "" || players[1].name === "") {
     alert("Please set player name for both players");
     return;
   }
+  resetGame();
 
   activePlayerName.textContent = players[activePlayer].name;
   gameArea.style.display = "block";
@@ -19,11 +42,11 @@ function switchPlayer() {
 }
 
 function selectGameField(event) {
+  if (gameIsOver) {
+    event.target.classList.add("disable");
+    return;
+  }
   const selectedField = event.target;
-
-  event.target.textContent = players[activePlayer].symbol;
-  event.target.classList.add("disable");
-
   const selectedCol = selectedField.dataset.col - 1;
   const selectedRow = selectedField.dataset.row - 1;
 
@@ -31,6 +54,9 @@ function selectGameField(event) {
     alert("Select an empty field!");
     return;
   }
+
+  event.target.textContent = players[activePlayer].symbol;
+  event.target.classList.add("disable");
 
   gameData[selectedRow][selectedCol] = activePlayer + 1;
 
@@ -96,9 +122,10 @@ function checkForGameOver() {
 function endGame(winnerId) {
   gameOverEl.style.display = "block";
   if (winnerId > 0) {
-    winnerName.textContent = players[winnerId - 1].name;
+    const winnerName = players[winnerId - 1].name;
+    gameOverEl.firstElementChild.firstElementChild.textContent = winnerName;
   } else {
     gameOverEl.firstElementChild.textContent = "It's a draw!";
-  }
 }
-
+gameIsOver = true;
+}

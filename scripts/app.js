@@ -2,6 +2,7 @@
 let editedPlayer = 0;
 let activePlayer = 0;
 let curruntRound = 1;
+let gameIsOver = false;
 
 const players = [
    {
@@ -45,7 +46,6 @@ const activePlayerName = document.getElementById('active-player-name');
 const gameArea = document.getElementById('active-game');
 const gameFieldElements = document.querySelectorAll('#game-board li');
 const gameOverEl = document.getElementById('game-over');
-const winnerName = document.getElementById('winner-name');
 
 startNewGameBtnEl.addEventListener('click', startNewGame);
 
