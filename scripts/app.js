@@ -1,6 +1,7 @@
 //Player config
 let editedPlayer = 0;
 let activePlayer = 0;
+let curruntRound = 1;
 
 const players = [
    {
