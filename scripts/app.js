@@ -44,6 +44,8 @@ const startNewGameBtnEl = document.getElementById('start-game-btn');
 const activePlayerName = document.getElementById('active-player-name');
 const gameArea = document.getElementById('active-game');
 const gameFieldElements = document.querySelectorAll('#game-board li');
+const gameOverEl = document.getElementById('game-over');
+const winnerName = document.getElementById('winner-name');
 
 startNewGameBtnEl.addEventListener('click', startNewGame);
 
